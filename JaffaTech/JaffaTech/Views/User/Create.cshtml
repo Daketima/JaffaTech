@@ -1,0 +1,69 @@
+﻿@model JaffaTech.Models.User
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>User</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<button type="submit"  value="Create" class="btn btn-default" />*@
+                <a class="btn btn-danger" id="btnCreate">Create</a>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script>
+        $("#btnCreate").click(function () {
+            var username = $("#Username").val();
+            var password = $("#Password").val()
+            $.ajax({
+                url: "@Url.Action("Create", "User")",
+                data: { "Username": username, "Password": password },
+                datatype: "json",
+                type: "POST",
+                success: function () {
+                    window.location = "@Url.Action("Index", "User")";
+                },
+                error: function () {
+                    console.log("An error occured")
+                    window.location.href = "@Url.Action("Index", "User")";
+                }
+            });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
