@@ -11,22 +11,47 @@ namespace JaffaTech.DAL
     {
         protected override void Seed(JaffaTechDbContext context)
         {
-            List<User> user = new List<User> { new User
-            { Username = "olasimaduka.jaffatech.com", Password = "maduka" },
-                new User {Username = "olasimaduka.jaffatech.com", Password = "maduka" }
+            List<User> user = new List<User> {
+                new User
+                {
+                    Username = "olasi.maduka@jaffatech.com",
+                    Password = "maduka"
+                },
+                new User
+                { Username = "hakeem.kazeem@jaffatech.com",
+                    Password = "hakeem"
+                }
             };
 
             user.ForEach(usr => context.User.Add(usr));
             context.SaveChanges();
 
-            List<Role> Role = new List<Role> { new Role{ RoleName = "admin"},
-                new Role{RoleName = "HR"}
+            List<Role> Role = new List<Role> {
+                new Role
+                {
+                    RoleName = "admin"
+                },
+                new Role
+                {
+                    RoleName = "HR"
+                }
             };
 
             Role.ForEach(rl => context.Role.Add(rl));
             context.SaveChanges();
 
-            List<UserRole> userRoles = new List<UserRole> { new UserRole { UserId = 2, RoleId = 1 }, new UserRole { UserId = 1, RoleId = 2 } };
+            List<UserRole> userRoles = new List<UserRole> {
+                new UserRole
+                {
+                    UserId = 2,
+                    RoleId = 1
+                },
+                new UserRole
+                {
+                    UserId = 1,
+                    RoleId = 2
+                }
+            };
             userRoles.ForEach(usrl => context.UserRole.Add(usrl));
             context.SaveChanges();
 
